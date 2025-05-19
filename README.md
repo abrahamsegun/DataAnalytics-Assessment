@@ -1,17 +1,17 @@
 ### Data Analytics Assessment 
 
-# Ran the database `adashi_staging`
+# Database used `adashi_staging`
 
 ## Question One 
 # Per-Question Explanation
-1. To find the customer with at least a funded account, I joined all the tables invloved users_customer, saving_savingaccount and plans_plan on owner_id using a subquery to get saving and investemnt information from the individual table.
-2. For the saving i used the confimred amount to get total deposit and use amount for the investemnt table  and filtered amount > 0, to get funded account. 
-3. In the final query to get my table I used concat() function to get my name 
-4. I also convert the total deposit from kobo to naria as suggestion in the hint for the question using kobo/100 = naria and rounded into two decimal places
-5. i used the saving plus investemnt deposit as my total deposit since both are from different account
+1. To identify customers with at least one funded account, I joined the necessary tables: users_customer, saving_savingaccount, and plans_plan, using owner_id as the key and I used a subquery to get saving and investemnt amount from the individual table.
+2. From the savings table, I used confirmed_amount to calculate total deposits. From the investments table, I used the amount field. I filtered only those with amount > 0 to ensure only funded accounts were considered. 
+3. I used the CONCAT() function to combine first and last names into a full name
+4. As suggested, I converted all monetary values from Kobo to Naira using the formula kobo / 100, and rounded the result to two decimal places
+5. I added deposits from both savings and investments to calculate the total deposit per customer, as they belong to different account types
 # Challenges:
-1. I did pay closer attention at first that the `owner_id` is same as `id` in users_customuser, it gave headache initially to join all the three tables together.
-2. Hard time trying not to misinterpret `confirmed_amount` and just` amount` on the saving table
+1. Initially, I didn’t realize that owner_id in the savings and investment tables corresponds to the id in users_customer, which caused some confusion when joining tables.
+2. Differentiating between confirmed_amount and amount in the savings table was tricky and required close attention
 
 ## Question Two
 # Per-Question Explanation
