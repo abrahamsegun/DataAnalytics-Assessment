@@ -26,6 +26,6 @@ JOIN savings s ON u.id = s.owner_id
 JOIN investments i ON u.id = i.owner_id
 ORDER BY total_deposits DESC;
 
--- The ROUND((s.total_savings + i.total_investments)/100, 2) AS total_deposits and convert to naira
--- Is to get the total deposit both for the investment and saving together then round up to kobo, two decimal places 
+-- The ROUND((s.total_savings + i.total_investments)/100, 2) AS total_deposits is to add total saving and investment by a single individual in both account. 
+-- This way it will calculate for at least one of them either saving or investemnt account and convert the result to naira and  round up to kobo, two decimal places 
 -- Sort it by total deposit to rank from highest deposit to lowest 
