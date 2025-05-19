@@ -3,23 +3,29 @@ USE `adashi_staging`;
 -- How often customers transact per month 
 -- Get monthly transcation OF USERS
 
-CREATE OR REPLACE VIEW `monthly_txn` AS
-SELECT owner_id,
-    YEAR(transaction_date) AS txn_year,
-    MONTH(transaction_date) AS txn_month,
-    COUNT(confirmed_amount) AS count_txn
-FROM savings_savingsaccount
-WHERE confirmed_amount > 0
-GROUP BY owner_id, txn_year, txn_month;
+WITH monthly_txn AS (
+    SELECT 
+        owner_id,
+        YEAR(transaction_date) AS txn_year,
+        MONTH(transaction_date) AS txn_month,
+        COUNT(confirmed_amount) AS count_txn
+    FROM savings_savingsaccount
+    WHERE confirmed_amount > 0
+    GROUP BY owner_id, YEAR(transaction_date), MONTH(transaction_date)
+),
+
 
 -- select * from `monthly_txn`;
 
 -- 	AVG transaction per customer
 
-CREATE OR REPLACE VIEW `avg_txn` AS
-SELECT owner_id, AVG(count_txn) AS avg_transactions_per_month
-FROM `monthly_txn`
-GROUP BY owner_id;
+avg_txn AS (
+    SELECT 
+        owner_id, 
+        AVG(count_txn * 1.0) AS avg_transactions_per_month
+    FROM monthly_txn
+    GROUP BY owner_id
+)
 
 -- Summarise with frequency according to the table given 
 SELECT
@@ -32,6 +38,9 @@ SELECT
   ROUND(AVG(avg_transactions_per_month), 1) AS avg_transactions_per_month
 FROM avg_txn
 GROUP BY frequency_category;
+
+
+
 
 
     
